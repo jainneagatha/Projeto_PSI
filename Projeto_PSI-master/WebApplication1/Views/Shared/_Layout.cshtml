@@ -1,0 +1,94 @@
+﻿@using WebApplication1.Infraestrutura
+<!DOCTYPE html>
+<html>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"
+          charset="utf-8" />
+    <title>@ViewBag.Title</title>
+    <link href="@Url.Content("~/content/bootstrap.css")" rel="stylesheet" />
+    @RenderSection("styles", false)
+    <style>
+        .container-cabecalho {
+            display: flex;
+            justify-content: space-around;
+        }
+
+        .lista-item-cabecalho {
+            color: black;
+            border-bottom: 1px solid black;
+            display: inline-block;
+            margin: 10px;
+        }
+
+        .lista-item-cabecalho:hover {
+            background-color:lightgray;
+            color: white;
+            padding: 10px;
+        }
+
+
+
+        .cabecalho {
+            width: 80%;
+            display: flex;
+            justify-content: space-evenly;
+            margin: 0px 40%;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="page-header" style="color:black;">
+                <h1>
+                    PROJETO PSI
+                </h1>
+            </div>
+        </div>
+        <div>
+            @{
+                if (Html.GetAuthenticatedUser().ToString() != "")
+                {
+                    @Html.GetAuthenticatedUser();
+                    @Html.ActionLink(" - Sair", "Logout", "Account")
+                }
+                else
+                {
+                    @Html.ActionLink("Acessar", "Login", "Account", new { area = "Seguranca" }, null);
+
+                }
+            }
+        </div>
+        <div class="row">
+            <header>
+                <nav class="container-cabecalho">
+                    <ul class="" cabecalho">
+                        <li class="lista-item-cabecalho role="presentation">@Html.ActionLink("Home", "Index", "Home", new { Area = "" }, null)</li>
+                        <li class="lista-item-cabecalho role="presentation">@Html.ActionLink("Categorias", "Index", "Categorias", new { Area = "Tabelas" }, null)</li>
+                        <li class="lista-item-cabecalho role="presentation">@Html.ActionLink("Fabricantes", "Index", "Fabricante", new { Area = "Cadastros" }, null)</li>
+                        <li class="lista-item-cabecalho role="presentation">@Html.ActionLink("Produtos", "Index", "Produtos", new { Area = "Cadastros" }, null)</li>
+                        <li class="lista-item-cabecalho role="presentation">@Html.ActionLink("Usuários", "Index", "Admin", new { area = "Seguranca" }, null)</li>
+                        <li class="lista-item-cabecalho role="presentation">@Html.ActionLink("Papéis", "Index", "PapelAdmin", new { area = "Seguranca" }, null)</li>
+                    </ul>
+                </nav>
+            </header>
+            <div>
+                <br />
+                @RenderBody()
+            </div>
+        </div> <br />
+        <div class="row">
+            <div class="col-xs-12 col-md-12r">
+                <small>Layout com Bootstrap</small>
+            </div>
+        </div>
+    </div>
+    <script src="@Url.Content("~/Scripts/jquery.validate.js")"></script>
+    <script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.js")"></script>
+    <script src="@Url.Content("~/scripts/jquery-1.10.2.js")"></script>
+    <script src="@Url.Content("~/scripts/bootstrap.js")"></script>
+    @RenderSection("ScriptPage", false);
+</body>
+</html>
